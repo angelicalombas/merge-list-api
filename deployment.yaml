@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: merge-list-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: merge-list-api
+  template:
+    metadata:
+      labels:
+        app: merge-list-api
+    spec:
+      containers:
+      - name: merge-list-api
+        image: merge-list-api:v1.0
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: merge-list-api
+spec:
+  selector:
+    app: merge-list-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

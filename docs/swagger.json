@@ -1,0 +1,101 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API dedicated to merging two ordered lists",
+        "title": "Merge lists API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/Merge": {
+            "get": {
+                "description": "Merge saved lists",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lists"
+                ],
+                "summary": "Merge saved lists",
+                "responses": {
+                    "200": {
+                        "description": "Merged list",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "You must save at least two lists to merge.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/SaveLists": {
+            "post": {
+                "description": "Save two lists provided in the request body",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Lists"
+                ],
+                "summary": "Save lists",
+                "parameters": [
+                    {
+                        "description": "Lists to save",
+                        "name": "lists",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/controllers.InputLists"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lists saved successfully.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Unable to read the lists provided.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controllers.InputLists": {
+            "type": "object",
+            "properties": {
+                "list1": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "list2": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    }
+}
