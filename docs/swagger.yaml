@@ -1,0 +1,66 @@
+basePath: /
+definitions:
+  controllers.InputLists:
+    properties:
+      list1:
+        items:
+          type: integer
+        type: array
+      list2:
+        items:
+          type: integer
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API dedicated to merging two ordered lists
+  title: Merge lists API
+  version: "1.0"
+paths:
+  /Merge:
+    get:
+      description: Merge saved lists
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Merged list
+          schema:
+            items:
+              type: integer
+            type: array
+        "400":
+          description: You must save at least two lists to merge.
+          schema:
+            type: string
+      summary: Merge saved lists
+      tags:
+      - Lists
+  /SaveLists:
+    post:
+      consumes:
+      - application/json
+      description: Save two lists provided in the request body
+      parameters:
+      - description: Lists to save
+        in: body
+        name: lists
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.InputLists'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Lists saved successfully.
+          schema:
+            type: string
+        "400":
+          description: Unable to read the lists provided.
+          schema:
+            type: string
+      summary: Save lists
+      tags:
+      - Lists
+swagger: "2.0"
